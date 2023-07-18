@@ -45,7 +45,7 @@ export const getAllBlog = async (req, res) => {
 
     const savedBlog = await BlogModel.find({})
       .skip((page - 1) * limit)
-      .limit(limit);
+      .limit(limit).sort({PinnedPost: -1, createdAt : -1});
 
     if (savedBlog.length < 1) {
       return res

@@ -17,6 +17,10 @@ const blogSchema = new mongoose.Schema(
     DetailDescription: {
       type: String,
       required: true,
+    },
+    PinnedPost: {
+      type: Boolean,
+      default: false
     }
   },
   {
