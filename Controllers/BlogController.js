@@ -43,7 +43,7 @@ export const getAllBlog = async (req, res) => {
     const totalCount = await BlogModel.find({}).countDocuments();
     const totalPages = Math.ceil(totalCount / limit);
 
-    const savedBlog = await BlogModel.find({})
+const savedBlog = await BlogModel.find({})
       .skip((page - 1) * limit)
       .limit(limit).sort({PinnedPost: -1, createdAt : -1});
 
