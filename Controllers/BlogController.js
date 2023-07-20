@@ -53,13 +53,20 @@ const savedBlog = await BlogModel.find({})
         .json({ status: true, message: "No blog present in the database" });
     }
 
-    return res.status(201).json({
+    const jsonData = JSON.stringify({
       status: true,
       message: "successfully fetched blog data",
       savedBlog,
       currentPage: page,
       totalPages: totalPages,
     });
+
+    // Set the Content-Length header to the length of the JSON data
+    res.setHeader('Content-Length', Buffer.byteLength(jsonData));
+
+    // Send the JSON response
+    res.setHeader('Content-Type', 'application/json');
+    return res.status(201).send(jsonData);
   } catch (error) {
     return res.status(500).json({
       status: false,
