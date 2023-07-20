@@ -61,12 +61,15 @@ const savedBlog = await BlogModel.find({})
       totalPages: totalPages,
     });
 
-    // Set the Content-Length header to the length of the JSON data
-    res.setHeader('Content-Length', Buffer.byteLength(jsonData));
+   // Calculate the Content-Length
+   const contentLength = Buffer.byteLength(jsonData, 'utf-8');
 
-    // Send the JSON response
-    res.setHeader('Content-Type', 'application/json');
-    return res.status(201).send(jsonData);
+   // Set the Content-Length header manually
+   res.setHeader('Content-Length', contentLength);
+
+   // Send the JSON response
+   res.setHeader('Content-Type', 'application/json');
+   return res.status(201).send(jsonData);
   } catch (error) {
     return res.status(500).json({
       status: false,
